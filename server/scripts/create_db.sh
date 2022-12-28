@@ -1,1 +1,1 @@
-npx sequelize-cli db:create
+npx sequelize db:create
