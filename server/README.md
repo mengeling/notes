@@ -9,3 +9,10 @@ DB_USERNAME=[USERNAME]
 DB_PASSWORD=[PASSWORD]
 DB_NAME='notes'
 ```
+
+Sequelize Commands:
+
+```bash
+npx sequelize db:create
+npx sequelize model:create --name notes --attributes note:text,tag:string
+```
