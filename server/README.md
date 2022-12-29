@@ -14,7 +14,9 @@ Sequelize Commands:
 
 ```bash
 npx sequelize db:create
-npx sequelize model:create --name notes --attributes note:text,tag:string
+npx sequelize model:create --name Notes --attributes note:text,tag:string
 npx sequelize db:migrate
-npx sequelize seed:generate --name notes
+npx sequelize seed:generate --name Notes
+npx sequelize db:seed:all
+npx nodemon
 ```
