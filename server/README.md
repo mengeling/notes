@@ -10,7 +10,7 @@ DB_PASSWORD=[PASSWORD]
 DB_NAME='notes'
 ```
 
-Sequelize Commands:
+Commands used to setup database:
 
 ```bash
 npx sequelize db:create
@@ -19,4 +19,13 @@ npx sequelize db:migrate
 npx sequelize seed:generate --name Notes
 npx sequelize db:seed:all
 npx nodemon
+```
+
+Resetting database:
+
+```bash
+npx sequelize db:drop
+npx sequelize db:create
+npx sequelize db:migrate
+npx sequelize db:seed:all
 ```
