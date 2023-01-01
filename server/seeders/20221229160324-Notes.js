@@ -7,12 +7,14 @@ module.exports = {
       "Notes",
       [
         {
+          title: "Example",
           note: "This is an example note",
           tag: "personal",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
+          title: "Test",
           note: "Writing another test note",
           tag: "work",
           createdAt: new Date(),
