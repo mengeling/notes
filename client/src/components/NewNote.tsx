@@ -3,12 +3,6 @@ import React, { useState } from "react";
 const NewNote = () => {
   const [newNote, setNewNote] = useState({ title: "", tag: "", note: "" });
 
-  function updateNewNoteState(value: { [k: string]: string }) {
-    return setNewNote((prev) => {
-      return { ...prev, ...value };
-    });
-  }
-
   const onChange =
     (field: string) =>
     (
@@ -16,7 +10,10 @@ const NewNote = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ChangeEvent<HTMLTextAreaElement>
     ) => {
-      updateNewNoteState({ [field]: e.target.value });
+      setNewNote((prev) => {
+        return { ...prev, [field]: e.target.value };
+      });
+      console.log(newNote);
     };
 
   async function onSubmit(e: React.ChangeEvent<HTMLFormElement>) {

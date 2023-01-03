@@ -1,6 +1,4 @@
-// import { GetNotes, NewNote } from "./components";
-import { GetNotes } from "./components/GetNotes";
-import { NewNote } from "./components/NewNote";
+import { GetNotes, NewNote } from "./components";
 
 const App = () => {
   console.log(process.env);
