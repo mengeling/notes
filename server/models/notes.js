@@ -1,8 +1,8 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+// "use strict";
+import { Model } from "sequelize";
+// const { Model } = require('sequelize');
+
+export default (sequelize, DataTypes) => {
   class Notes extends Model {
     /**
      * Helper method for defining associations.
@@ -13,13 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Notes.init({
-    title: DataTypes.STRING,
-    note: DataTypes.TEXT,
-    tag: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Notes',
-  });
+  Notes.init(
+    {
+      title: DataTypes.STRING,
+      note: DataTypes.TEXT,
+      tag: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Notes",
+    }
+  );
   return Notes;
 };

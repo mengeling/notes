@@ -1,4 +1,4 @@
-const models = require("../models");
+import models from "../models/index.js";
 
 const createNote = async (req, res) => {
   try {
@@ -64,10 +64,4 @@ const deleteNote = async (req, res) => {
   }
 };
 
-module.exports = {
-  createNote,
-  getNotes,
-  getNoteById,
-  updateNote,
-  deleteNote,
-};
+export { createNote, getNotes, getNoteById, updateNote, deleteNote };
