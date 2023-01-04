@@ -1,12 +1,12 @@
-import { GetNotes, NewNote } from "./components";
+import "./styles/_index.css";
+import { NewNote, SideNav } from "./components";
 
 const App = () => {
-  console.log(process.env);
   return (
     <div>
       <h1>Notes</h1>
+      <SideNav />
       <NewNote />
-      <GetNotes />
     </div>
   );
 };

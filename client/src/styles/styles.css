@@ -1,0 +1,13 @@
+.sidenav-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sidenav-toggle {
+  /* Styles for the toggle button go here */
+}
+
+.sidenav {
+  /* Styles for the sidenav go here */
+}

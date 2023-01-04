@@ -13,7 +13,6 @@ const NewNote = () => {
       setNewNote((prev) => {
         return { ...prev, [field]: e.target.value };
       });
-      console.log(newNote);
     };
 
   async function onSubmit(e: React.ChangeEvent<HTMLFormElement>) {
