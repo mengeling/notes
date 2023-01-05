@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { GetNotes } from ".";
+// import { NewNote } from ".";
 
-const SideNav = () => {
+const NoteBody = () => {
   // const [navIsOpen, setNavIsOpen] = useState(false);
 
   // const toggleSideNav = () => {
@@ -9,16 +9,21 @@ const SideNav = () => {
   // };
 
   return (
-    <div className="sidenav-wrapper">
+    <div className="notebody-wrapper">
       {/* <button className="sidenav-toggle" onClick={toggleSideNav}> */}
       {/* <i className="fa fa-bars"></i> */}
       {/* </button> */}
       {/* <nav style={{ display: navIsOpen ? "block" : "none" }}> */}
-      <nav>
-        <GetNotes />
-      </nav>
+      {/* <NewNote /> */}
+      <div className="notebody"></div>
+      <div className="notebody-footer">
+        <button className="newnote-button">
+          <i className="fa-solid fa-plus"></i>
+          <span className="newnote-button-text">New</span>
+        </button>
+      </div>
     </div>
   );
 };
 
-export default SideNav;
+export default NoteBody;

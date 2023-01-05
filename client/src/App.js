@@ -1,12 +1,11 @@
 import "./styles/_index.css";
-import { NewNote, SideNav } from "./components";
+import { NoteBody, SideNav } from "./components";
 
 const App = () => {
   return (
-    <div>
-      <h1>Notes</h1>
+    <div className="app-wrapper">
       <SideNav />
-      <NewNote />
+      <NoteBody />
     </div>
   );
 };
