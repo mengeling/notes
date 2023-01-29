@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { NewNote } from ".";
 
 const NoteBody = () => {
-  const [newNoteIsOpen, setNetNoteIsOpen] = useState(false);
+  const [newNoteIsOpen, setNewNoteIsOpen] = useState(false);
 
   const openNewNote = () => {
-    setNetNoteIsOpen(!newNoteIsOpen);
+    setNewNoteIsOpen(!newNoteIsOpen);
   };
 
   return (

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const Notes = () => {
+const Notes = ({ getSelectedNote }) => {
   const [notes, setNotes] = useState([]);
-  const [selectedNote, setSelectedNote] = useState({});
 
   useEffect(() => {
     async function getNotes() {
@@ -21,10 +20,8 @@ const Notes = () => {
   }, []);
 
   const onClick = (noteId: string) => (e: React.SyntheticEvent) => {
-    const note = notes.find(
-      (note: { [k: string]: string }) => note.id === noteId
-    );
-    setSelectedNote(note || {});
+    const selectedNote = getSelectedNote(noteId, notes);
+    console.log(selectedNote);
   };
 
   return (
