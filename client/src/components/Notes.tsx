@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Notes = ({ getSelectedNote }) => {
+const Notes = ({ setDefaultNote, setSelectedNote }) => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -20,8 +20,7 @@ const Notes = ({ getSelectedNote }) => {
   }, []);
 
   const onClick = (noteId: string) => (e: React.SyntheticEvent) => {
-    const selectedNote = getSelectedNote(noteId, notes);
-    console.log(selectedNote);
+    setSelectedNote(noteId, notes);
   };
 
   return (

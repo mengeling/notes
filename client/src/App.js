@@ -1,5 +1,6 @@
 import "./styles/_index.css";
-import { NoteBody, SideNav } from "./components";
+import { SideNav } from "./components";
+import { NoteBody } from "./containers";
 
 const App = () => {
   return (

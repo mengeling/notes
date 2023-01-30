@@ -1,7 +1,8 @@
-export enum ActionTypes {
-  GetSelectedNote = "GetSelectedNote",
-}
-
-export interface SelectedNote {
-  [key: string]: string;
+export interface Note {
+  id: number;
+  title: string;
+  note: string;
+  tag: string;
+  createdAt: string;
+  updatedAt: string;
 }
