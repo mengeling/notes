@@ -3,16 +3,17 @@ import { useAppSelector } from "redux/hooks";
 
 import { NewNote } from ".";
 
-const NoteBody = ({ setDefaultNote }) => {
+const NoteBody = () => {
   const [newNoteIsOpen, setNewNoteIsOpen] = useState(false);
-  const selectedNoteFromStore = useAppSelector(
-    (state) => state.notes.selectedNote
-  );
-  const [selectedNote, setSelectedNote] = useState(selectedNoteFromStore);
+  const defaultNote = useAppSelector((state) => state.notes.defaultNote);
+  const selectedNote = useAppSelector((state) => state.notes.selectedNote);
+  const [note, setNote] = useState(defaultNote);
 
   useEffect(() => {
-    setSelectedNote(selectedNoteFromStore);
-  }, [selectedNoteFromStore]);
+    setNote(
+      Object.keys(selectedNote).length === 0 ? defaultNote : selectedNote
+    );
+  }, [defaultNote, selectedNote]);
 
   const openNewNote = () => {
     setNewNoteIsOpen(!newNoteIsOpen);
@@ -25,8 +26,8 @@ const NoteBody = ({ setDefaultNote }) => {
           <NewNote />
         ) : (
           <div>
-            <h2>{selectedNote?.title || "Title"}</h2>
-            <p>{selectedNote?.note || "Note Body"}</p>
+            <h2>{note?.title || "Title"}</h2>
+            <p>{note?.note || "Note Body"}</p>
           </div>
         )}
       </div>

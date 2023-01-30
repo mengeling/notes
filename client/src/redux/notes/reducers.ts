@@ -2,34 +2,34 @@ import { AnyAction } from "redux";
 
 import { Note } from "./types";
 
-// const emptyNote: Note = {
-//   id: 0,
-//   title: "",
-//   note: "",
-//   tag: "",
-//   createdAt: "",
-//   updatedAt: "",
-// };
-
 export const initialState = {
+  notes: [],
   defaultNote: {},
   selectedNote: {},
 };
 
 const reducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case "SetDefaultNote": {
-      const defaultNote = action.notes.sort((noteA: Note, noteB: Note) => {
-        const noteADate = new Date(noteA.updatedAt);
-        const noteBDate = new Date(noteB.updatedAt);
-        return noteBDate.getTime() - noteADate.getTime();
-      })[0];
+    case "SET_DEFAULT_NOTE": {
+      const defaultNote = action.notes.reduce(
+        (latestNote: Note, currentNote: Note) => {
+          const latestNoteDate = new Date(latestNote.updatedAt);
+          const currentNoteDate = new Date(currentNote.updatedAt);
+          return latestNoteDate > currentNoteDate ? latestNote : currentNote;
+        }
+      );
       return {
         ...state,
         defaultNote: defaultNote,
       };
     }
-    case "SetSelectedNote": {
+    case "SET_NOTES": {
+      return {
+        ...state,
+        notes: action.notes,
+      };
+    }
+    case "SET_SELECTED_NOTE": {
       const selectedNote = action.notes.find(
         (note: Note) => note.id === action.id
       );

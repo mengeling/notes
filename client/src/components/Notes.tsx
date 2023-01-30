@@ -1,36 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-const Notes = ({ setDefaultNote, setSelectedNote }) => {
-  const [notes, setNotes] = useState([]);
+import { client } from "api/client";
+import { Note } from "redux/notes";
+import { useAppSelector } from "redux/hooks";
+
+const Notes = ({ setDefaultNote, setNotes, setSelectedNote }) => {
+  const notes = useAppSelector((state) => state.notes.notes);
 
   useEffect(() => {
-    async function getNotes() {
-      await fetch("http://localhost:5000/api/notes", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setNotes(data.notes);
-        });
-    }
+    const getNotes = async () => {
+      const response = await client.get("http://localhost:5000/api/notes");
+      setNotes(response.notes);
+      setDefaultNote(response.notes);
+    };
     getNotes();
-  }, []);
+  }, [setDefaultNote, setNotes]);
 
-  const onClick = (noteId: string) => (e: React.SyntheticEvent) => {
+  const onClick = (noteId: number) => (e: React.SyntheticEvent) => {
     setSelectedNote(noteId, notes);
   };
 
   return (
     <div className="notes-wrapper">
-      {notes.map((note: { [k: string]: string }) => (
+      {notes.map((note: Note) => (
         <button
           key={note.id}
           className="notes-button"
           onClick={onClick(note.id)}
-          id={note.id}
+          id={note.id.toString()}
         >
           <h4>{note.title}</h4>
           <p>{note.note}</p>
