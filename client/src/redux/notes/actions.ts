@@ -1,22 +1,16 @@
-import { Notes } from "./types";
-
-export const setDefaultNote = (notes: Notes) => ({
-  type: "SET_DEFAULT_NOTE",
-  notes: notes,
-});
+import { Notes } from "redux/notes/types";
 
 export const setNewNoteIsOpen = (newNoteIsOpen: boolean) => ({
-  type: "SET_NEW_NOTE_IS_OPEN",
-  newNoteIsOpen: newNoteIsOpen,
+  type: "notes/setNewNoteIsOpen",
+  payload: { newNoteIsOpen },
 });
 
 export const setNotes = (notes: Notes) => ({
-  type: "SET_NOTES",
-  notes: notes,
+  type: "notes/setNotes",
+  payload: { notes },
 });
 
-export const setSelectedNote = (id: number, notes: Notes) => ({
-  type: "SET_SELECTED_NOTE",
-  id: id,
-  notes: notes,
+export const setSelectedNote = (id: number) => ({
+  type: "notes/setSelectedNote",
+  payload: { id },
 });

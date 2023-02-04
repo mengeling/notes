@@ -1,31 +1,24 @@
+import { Dispatch } from "redux";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
 import { client } from "api/client";
-import {
-  Note,
-  Notes,
-  setNotes,
-  setDefaultNote,
-  setSelectedNote,
-} from "redux/notes";
 import { useAppSelector } from "redux/hooks";
+import { Note, Notes, setNotes, setSelectedNote } from "redux/notes";
 
-const UnconnectedNotes = ({ setDefaultNote, setNotes, setSelectedNote }) => {
-  const notes = useAppSelector((state) => state.notes.notes);
+const UnconnectedNotes = ({ setNotes, setSelectedNote }) => {
+  const notes = useAppSelector((state) => state.notesReducer.notes);
 
   useEffect(() => {
     const getNotes = async () => {
       const response = await client.get("http://localhost:5000/api/notes");
       setNotes(response.notes);
-      setDefaultNote(response.notes);
     };
     getNotes();
-  }, [setDefaultNote, setNotes]);
+  }, [setNotes]);
 
   const onClick = (noteId: number) => (e: React.SyntheticEvent) => {
-    setSelectedNote(noteId, notes);
+    setSelectedNote(noteId);
   };
 
   return (
@@ -46,10 +39,8 @@ const UnconnectedNotes = ({ setDefaultNote, setNotes, setSelectedNote }) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setDefaultNote: (notes: Notes) => dispatch(setDefaultNote(notes)),
   setNotes: (notes: Notes) => dispatch(setNotes(notes)),
-  setSelectedNote: (id: number, notes: Notes) =>
-    dispatch(setSelectedNote(id, notes)),
+  setSelectedNote: (id: number) => dispatch(setSelectedNote(id)),
 });
 
 export default connect(null, mapDispatchToProps)(UnconnectedNotes);

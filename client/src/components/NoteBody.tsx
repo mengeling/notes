@@ -1,21 +1,21 @@
+import { Dispatch } from "redux";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
-import { useAppSelector } from "redux/hooks";
 import { NewNote } from "components";
+import { useAppSelector } from "redux/hooks";
 import { setNewNoteIsOpen } from "redux/notes";
 
 const UnconnectedNoteBody = ({ setNewNoteIsOpen }) => {
-  const newNoteIsOpen = useAppSelector((state) => state.notes.newNoteIsOpen);
-  const defaultNote = useAppSelector((state) => state.notes.defaultNote);
-  const selectedNote = useAppSelector((state) => state.notes.selectedNote);
+  const [newNoteIsOpen, defaultNote, selectedNote] = useAppSelector((state) => [
+    state.notesReducer.newNoteIsOpen,
+    state.notesReducer.defaultNote,
+    state.notesReducer.selectedNote,
+  ]);
   const [note, setNote] = useState(defaultNote);
 
   useEffect(() => {
-    setNote(
-      Object.keys(selectedNote).length === 0 ? defaultNote : selectedNote
-    );
+    setNote(selectedNote.title === "" ? defaultNote : selectedNote);
   }, [defaultNote, selectedNote]);
 
   const openNewNote = () => {
@@ -29,8 +29,8 @@ const UnconnectedNoteBody = ({ setNewNoteIsOpen }) => {
           <NewNote />
         ) : (
           <div>
-            <h2>{note?.title || "Title"}</h2>
-            <p>{note?.note || "Note Body"}</p>
+            <h2>{note?.title}</h2>
+            <p>{note?.note}</p>
           </div>
         )}
       </div>

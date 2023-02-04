@@ -1,11 +1,11 @@
+import { Dispatch } from "redux";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
 import { client } from "api/client";
-import { setNewNoteIsOpen } from "redux/notes";
+import { Notes, setNewNoteIsOpen, setNotes } from "redux/notes";
 
-const UnconnectedNewNote = ({ setNewNoteIsOpen }) => {
+const UnconnectedNewNote = ({ setNewNoteIsOpen, setNotes }) => {
   const [newNote, setNewNote] = useState({ title: "", tag: "", note: "" });
 
   const onChange =
@@ -23,6 +23,8 @@ const UnconnectedNewNote = ({ setNewNoteIsOpen }) => {
   async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     await client.post("http://localhost:5000/api/notes", newNote);
+    const response = await client.get("http://localhost:5000/api/notes");
+    setNotes(response.notes);
     setNewNoteIsOpen(false);
   }
 
@@ -64,6 +66,7 @@ const UnconnectedNewNote = ({ setNewNoteIsOpen }) => {
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   setNewNoteIsOpen: (newNoteIsOpen: boolean) =>
     dispatch(setNewNoteIsOpen(newNoteIsOpen)),
+  setNotes: (notes: Notes) => dispatch(setNotes(notes)),
 });
 
 export default connect(null, mapDispatchToProps)(UnconnectedNewNote);

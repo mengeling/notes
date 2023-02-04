@@ -1,54 +1,50 @@
-import { AnyAction } from "redux";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Note } from "./types";
+import { Note } from "redux/notes/types";
+
+const emptyNote: Note = {
+  id: 0,
+  title: "",
+  note: "",
+  tag: "",
+  createdAt: "",
+  updatedAt: "",
+};
 
 export const initialState = {
   notes: [],
-  defaultNote: {},
-  selectedNote: {},
+  defaultNote: emptyNote,
+  selectedNote: emptyNote,
   newNoteIsOpen: false,
 };
 
-const reducer = (state = initialState, action: AnyAction) => {
-  switch (action.type) {
-    case "SET_DEFAULT_NOTE": {
-      const defaultNote = action.notes.reduce(
+const notesSlice = createSlice({
+  name: "notes",
+  initialState,
+  reducers: {
+    setNewNoteIsOpen: (
+      state,
+      action: PayloadAction<{ newNoteIsOpen: boolean }>
+    ) => {
+      state.newNoteIsOpen = action.payload.newNoteIsOpen;
+    },
+    setNotes: (state, action: PayloadAction<{ notes: Note[] }>) => {
+      state.notes = action.payload.notes;
+      state.defaultNote = action.payload.notes.reduce(
         (latestNote: Note, currentNote: Note) => {
           const latestNoteDate = new Date(latestNote.updatedAt);
           const currentNoteDate = new Date(currentNote.updatedAt);
           return latestNoteDate > currentNoteDate ? latestNote : currentNote;
         }
       );
-      return {
-        ...state,
-        defaultNote: defaultNote,
-      };
-    }
-    case "SET_NEW_NOTE_IS_OPEN": {
-      return {
-        ...state,
-        newNoteIsOpen: action.newNoteIsOpen,
-      };
-    }
-    case "SET_NOTES": {
-      return {
-        ...state,
-        notes: action.notes,
-      };
-    }
-    case "SET_SELECTED_NOTE": {
-      const selectedNote = action.notes.find(
-        (note: Note) => note.id === action.id
+      state.selectedNote = emptyNote;
+    },
+    setSelectedNote: (state, action: PayloadAction<{ id: number }>) => {
+      state.selectedNote = state.notes.find(
+        (note: Note) => note.id === action.payload.id
       );
-      return {
-        ...state,
-        selectedNote: selectedNote,
-      };
-    }
-    default: {
-      return state;
-    }
-  }
-};
+    },
+  },
+});
 
-export default reducer;
+export const notesReducer = notesSlice.reducer;
