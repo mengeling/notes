@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
-const NewNote = () => {
+import { client } from "api/client";
+import { setNewNoteIsOpen } from "redux/notes";
+
+const UnconnectedNewNote = ({ setNewNoteIsOpen }) => {
   const [newNote, setNewNote] = useState({ title: "", tag: "", note: "" });
 
   const onChange =
@@ -15,22 +20,19 @@ const NewNote = () => {
       });
     };
 
-  async function onSubmit(e: React.ChangeEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-    await fetch("http://localhost:5000/api/notes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newNote),
-    });
+    await client.post("http://localhost:5000/api/notes", newNote);
+    setNewNoteIsOpen(false);
+  }
 
-    setNewNote({ title: "", tag: "", note: "" });
+  async function handleCancel() {
+    setNewNoteIsOpen(false);
   }
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           Title:
           <input
@@ -51,9 +53,17 @@ const NewNote = () => {
         </label>
         <br />
         <button type="submit">Add note</button>
+        <button type="button" onClick={handleCancel}>
+          Cancel
+        </button>
       </form>
     </div>
   );
 };
 
-export default NewNote;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setNewNoteIsOpen: (newNoteIsOpen: boolean) =>
+    dispatch(setNewNoteIsOpen(newNoteIsOpen)),
+});
+
+export default connect(null, mapDispatchToProps)(UnconnectedNewNote);

@@ -1,5 +1,6 @@
 import React from "react";
-import { Notes } from "../containers";
+
+import { Notes } from "components";
 
 const SideNav = () => {
   return (

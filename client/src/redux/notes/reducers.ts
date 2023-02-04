@@ -6,6 +6,7 @@ export const initialState = {
   notes: [],
   defaultNote: {},
   selectedNote: {},
+  newNoteIsOpen: false,
 };
 
 const reducer = (state = initialState, action: AnyAction) => {
@@ -21,6 +22,12 @@ const reducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         defaultNote: defaultNote,
+      };
+    }
+    case "SET_NEW_NOTE_IS_OPEN": {
+      return {
+        ...state,
+        newNoteIsOpen: action.newNoteIsOpen,
       };
     }
     case "SET_NOTES": {

@@ -5,6 +5,11 @@ export const setDefaultNote = (notes: Notes) => ({
   notes: notes,
 });
 
+export const setNewNoteIsOpen = (newNoteIsOpen: boolean) => ({
+  type: "SET_NEW_NOTE_IS_OPEN",
+  newNoteIsOpen: newNoteIsOpen,
+});
+
 export const setNotes = (notes: Notes) => ({
   type: "SET_NOTES",
   notes: notes,

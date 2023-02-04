@@ -1,10 +1,18 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
 import { client } from "api/client";
-import { Note } from "redux/notes";
+import {
+  Note,
+  Notes,
+  setNotes,
+  setDefaultNote,
+  setSelectedNote,
+} from "redux/notes";
 import { useAppSelector } from "redux/hooks";
 
-const Notes = ({ setDefaultNote, setNotes, setSelectedNote }) => {
+const UnconnectedNotes = ({ setDefaultNote, setNotes, setSelectedNote }) => {
   const notes = useAppSelector((state) => state.notes.notes);
 
   useEffect(() => {
@@ -37,4 +45,11 @@ const Notes = ({ setDefaultNote, setNotes, setSelectedNote }) => {
   );
 };
 
-export default Notes;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setDefaultNote: (notes: Notes) => dispatch(setDefaultNote(notes)),
+  setNotes: (notes: Notes) => dispatch(setNotes(notes)),
+  setSelectedNote: (id: number, notes: Notes) =>
+    dispatch(setSelectedNote(id, notes)),
+});
+
+export default connect(null, mapDispatchToProps)(UnconnectedNotes);
