@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { client } from "api/client";
 import { useAppSelector } from "redux/hooks";
 import { Note, Notes, setNotes, setSelectedNote } from "redux/notes";
+import { formatTimestampShort } from "utils";
 
 const UnconnectedNotes = ({ setNotes, setSelectedNote }) => {
   const notes = useAppSelector((state) => state.notesReducer.notes);
@@ -30,8 +31,9 @@ const UnconnectedNotes = ({ setNotes, setSelectedNote }) => {
           onClick={onClick(note.id)}
           id={note.id.toString()}
         >
-          <h4>{note.title}</h4>
+          <h4>{note.title || "Untitled"}</h4>
           <p>{note.note}</p>
+          <p>{formatTimestampShort(note.updatedAt)}</p>
         </button>
       ))}
     </div>

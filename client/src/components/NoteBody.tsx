@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { NewNote } from "components";
 import { useAppSelector } from "redux/hooks";
 import { setNewNoteIsOpen } from "redux/notes";
+import { formatTimestamp } from "utils";
 
 const UnconnectedNoteBody = ({ setNewNoteIsOpen }) => {
   const [newNoteIsOpen, defaultNote, selectedNote] = useAppSelector((state) => [
@@ -24,6 +25,9 @@ const UnconnectedNoteBody = ({ setNewNoteIsOpen }) => {
 
   return (
     <div className="notebody-wrapper">
+      <div className="notebody-header">
+        <p>Last Edited on {formatTimestamp(note?.updatedAt)}</p>
+      </div>
       <div className="notebody">
         {newNoteIsOpen ? (
           <NewNote />

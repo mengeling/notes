@@ -29,14 +29,12 @@ const notesSlice = createSlice({
       state.newNoteIsOpen = action.payload.newNoteIsOpen;
     },
     setNotes: (state, action: PayloadAction<{ notes: Note[] }>) => {
-      state.notes = action.payload.notes;
-      state.defaultNote = action.payload.notes.reduce(
-        (latestNote: Note, currentNote: Note) => {
-          const latestNoteDate = new Date(latestNote.updatedAt);
-          const currentNoteDate = new Date(currentNote.updatedAt);
-          return latestNoteDate > currentNoteDate ? latestNote : currentNote;
-        }
-      );
+      state.notes = action.payload.notes.sort((noteA: Note, noteB: Note) => {
+        const noteADate = new Date(noteA.updatedAt);
+        const noteBDate = new Date(noteB.updatedAt);
+        return noteBDate.getTime() - noteADate.getTime();
+      });
+      state.defaultNote = state.notes[0];
       state.selectedNote = emptyNote;
     },
     setSelectedNote: (state, action: PayloadAction<{ id: number }>) => {
