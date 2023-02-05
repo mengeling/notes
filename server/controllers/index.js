@@ -41,7 +41,7 @@ const updateNote = async (req, res) => {
     });
     if (updated) {
       const updatedNote = await models.Notes.findOne({ where: { id: noteId } });
-      return res.status(200).json({ post: updatedNote });
+      return res.status(200).json({ updatedNote });
     }
     throw new Error("Note not found");
   } catch (error) {
@@ -56,7 +56,7 @@ const deleteNote = async (req, res) => {
       where: { id: noteId },
     });
     if (deleted) {
-      return res.status(200).json({ id: noteId });
+      return res.status(200).json({ noteId });
     }
     throw new Error("Note not found");
   } catch (error) {

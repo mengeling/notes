@@ -4,53 +4,66 @@ import { connect } from "react-redux";
 
 import { client } from "api/client";
 import { useAppSelector } from "redux/hooks";
-import { setNotes } from "redux/notes";
-import { Notes } from "redux/notes";
+import {
+  setAddNote,
+  setRemoveNote,
+  setNotes,
+  setUpdateNote,
+} from "redux/notes";
+import { Note, Notes } from "redux/notes";
 import { formatTimestamp } from "utils";
 
-const UnconnectedNoteBody = ({ setNotes }) => {
+const UnconnectedNoteBody = ({
+  setAddNote,
+  setNotes,
+  setRemoveNote,
+  setUpdateNote,
+}) => {
   const [newNoteIsOpen, selectedNote] = useAppSelector((state) => [
     state.notesReducer.newNoteIsOpen,
     state.notesReducer.selectedNote,
   ]);
 
   const createNote = async () => {
-    await client.post("http://localhost:5000/api/notes", {
+    const response = await client.post("http://localhost:5000/api/notes", {
       title: "",
       tag: "",
       note: "",
     });
-    const response = await client.get("http://localhost:5000/api/notes");
-    setNotes(response.notes);
+    setAddNote(response.note);
   };
 
-  const handleTitleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    await client.put(`http://localhost:5000/api/notes/${selectedNote.id}`, {
-      title: e.target.value,
-      note: selectedNote.note,
-      tag: selectedNote.tag,
-    });
-    const response = await client.get("http://localhost:5000/api/notes");
-    setNotes(response.notes);
-  };
-
-  const handleBodyChange = async (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    await client.put(`http://localhost:5000/api/notes/${selectedNote.id}`, {
-      title: selectedNote.title,
-      note: e.target.value,
-      tag: selectedNote.tag,
-    });
-    const response = await client.get("http://localhost:5000/api/notes");
-    console.log(response.notes);
-    setNotes(response.notes);
-  };
+  const handleChange =
+    (field: string) =>
+    async (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+      const titleField = field === "title";
+      const body = titleField
+        ? {
+            title: e.target.value,
+            note: selectedNote.note,
+            tag: selectedNote.tag,
+          }
+        : {
+            title: selectedNote.title,
+            note: e.target.value,
+            tag: selectedNote.tag,
+          };
+      const response = await client.put(
+        `http://localhost:5000/api/notes/${selectedNote.id}`,
+        body
+      );
+      setUpdateNote(response.updatedNote);
+    };
 
   const deleteNote = async () => {
-    await client.delete(`http://localhost:5000/api/notes/${selectedNote.id}`);
-    const response = await client.get("http://localhost:5000/api/notes");
-    setNotes(response.notes);
+    const response = await client.delete(
+      `http://localhost:5000/api/notes/${selectedNote.id}`
+    );
+    setRemoveNote(parseInt(response.noteId));
   };
 
   return (
@@ -69,14 +82,14 @@ const UnconnectedNoteBody = ({ setNotes }) => {
             type="text"
             className="note-text title"
             value={selectedNote.title}
-            onChange={handleTitleChange}
+            onChange={handleChange("title")}
             placeholder="Title"
           />
           <textarea
             className="note-text body"
             rows={20}
             value={selectedNote.note}
-            onChange={handleBodyChange}
+            onChange={handleChange("body")}
             placeholder="Start writing your note here"
           />
         </div>
@@ -94,7 +107,10 @@ const UnconnectedNoteBody = ({ setNotes }) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setAddNote: (note: Note) => dispatch(setAddNote(note)),
   setNotes: (notes: Notes) => dispatch(setNotes(notes)),
+  setRemoveNote: (id: number) => dispatch(setRemoveNote(id)),
+  setUpdateNote: (note: Note) => dispatch(setUpdateNote(note)),
 });
 
 export default connect(null, mapDispatchToProps)(UnconnectedNoteBody);
