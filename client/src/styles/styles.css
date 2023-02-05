@@ -14,7 +14,7 @@ body {
 .sidenav-wrapper {
   display: inline-block;
   height: 100%;
-  width: 30%;
+  width: 25%;
 }
 
 .notes-wrapper {
@@ -22,11 +22,41 @@ body {
   overflow: auto;
 }
 
-.notes-button {
+.sidenav-note-button {
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
-  width: 98.5%;
+  width: 100%;
+  height: 19%;
   text-align: left;
-  padding: 20px;
+  padding-left: 16px;
+}
+
+.sidenav-note {
+  margin: 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  overflow: hidden;
+}
+
+.sidenav-note.title {
+  font-size: 1.1em;
+  height: 20%;
+  white-space: nowrap;
+}
+
+.sidenav-note.body {
+  height: 55%;
+  padding: 0;
+  hyphens: auto;
+}
+
+.sidenav-note.date {
+  height: 25%;
+  vertical-align: text-bottom;
+  padding-bottom: 0px;
+  padding-top: 20px;
+  font-size: 0.9em;
 }
 
 /* Note */
@@ -34,7 +64,7 @@ body {
   display: inline-block;
   position: relative;
   height: 100%;
-  width: 70%;
+  width: 75%;
 }
 
 .note-header {
@@ -42,6 +72,8 @@ body {
   height: 5%;
   display: flex;
   justify-content: space-between;
+  border-bottom: solid;
+  border-bottom-width: 1px;
 }
 
 .note-header-dropdown-button {
@@ -59,6 +91,22 @@ body {
 .note {
   padding: 30px;
   height: 80%;
+}
+
+.note-text {
+  border-width: 0;
+  border-bottom-width: 0.1px;
+  width: 90%;
+  margin: 10px;
+}
+
+.note-text.title {
+  font-size: 2.5em;
+}
+
+.note-text.body {
+  font-size: 1.3em;
+  margin-top: 40px;
 }
 
 .note-footer {

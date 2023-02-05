@@ -34,7 +34,9 @@ const UnconnectedNoteBody = ({ setNotes }) => {
     setNotes(response.notes);
   };
 
-  const handleBodyChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBodyChange = async (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     await client.put(`http://localhost:5000/api/notes/${selectedNote.id}`, {
       title: selectedNote.title,
       note: e.target.value,
@@ -65,12 +67,14 @@ const UnconnectedNoteBody = ({ setNotes }) => {
         <div>
           <input
             type="text"
+            className="note-text title"
             value={selectedNote.title}
             onChange={handleTitleChange}
             placeholder="Title"
           />
-          <input
-            type="text"
+          <textarea
+            className="note-text body"
+            rows={20}
             value={selectedNote.note}
             onChange={handleBodyChange}
             placeholder="Start writing your note here"

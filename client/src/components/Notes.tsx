@@ -27,13 +27,15 @@ const UnconnectedNotes = ({ setNotes, setSelectedNote }) => {
       {notes.map((note: Note) => (
         <button
           key={note.id}
-          className="notes-button"
+          className="sidenav-note-button"
           onClick={onClick(note.id)}
           id={note.id.toString()}
         >
-          <h4>{note.title || "Untitled"}</h4>
-          <p>{note.note}</p>
-          <p>{formatTimestampShort(note.updatedAt)}</p>
+          <h4 className="sidenav-note title">{note.title || "Untitled"}</h4>
+          <p className="sidenav-note body">{note.note}</p>
+          <p className="sidenav-note date">
+            {formatTimestampShort(note.updatedAt)}
+          </p>
         </button>
       ))}
     </div>
