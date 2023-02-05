@@ -15,7 +15,6 @@ body {
   display: inline-block;
   height: 100%;
   width: 30%;
-  /* border: 0.1px solid; */
 }
 
 .notes-wrapper {
@@ -30,30 +29,39 @@ body {
   padding: 20px;
 }
 
-/* Note Body */
-.notebody-wrapper {
+/* Note */
+.note-wrapper {
   display: inline-block;
   position: relative;
   height: 100%;
   width: 70%;
-  /* border: 0.1px solid; */
 }
 
-.notebody-header {
+.note-header {
   padding: 16px;
   height: 5%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.notebody {
-  /* position: absolute; */
-  /* top: 0; */
-  /* display: inline-block; */
+.note-header-dropdown-button {
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  border: 0;
+  background-color: white;
+}
+
+.note-header-dropdown-text {
+  scale: 2.3;
+}
+
+.note {
   padding: 30px;
   height: 80%;
-  /* width: 100%; */
 }
 
-.notebody-footer {
+.note-footer {
   position: absolute;
   bottom: 0;
   height: 5%;
@@ -68,8 +76,6 @@ body {
   left: 48%;
   border: 0;
   border-radius: 12px;
-  /* color: white; */
-  /* background-color: green; */
 }
 
 .newnote-button-text {
