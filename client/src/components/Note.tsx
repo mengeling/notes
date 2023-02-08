@@ -72,8 +72,8 @@ const UnconnectedNoteBody = ({
         <p className="note-header-date">
           Last Edited on {formatTimestamp(selectedNote?.updatedAt)}
         </p>
-        <button className="note-header-dropdown-button" onClick={deleteNote}>
-          <p className="note-header-dropdown-text">...</p>
+        <button className="note-header-delete-button" onClick={deleteNote}>
+          <span className="note-header-delete-text">Delete</span>
         </button>
       </div>
       <div className="note">
